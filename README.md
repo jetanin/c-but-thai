@@ -6,6 +6,14 @@ CPE101 Semaster 1 Year 2024
 
 - [hashmap.c](https://github.com/tidwall/hashmap.c) by [tidwall](https://github.com/tidwall)
 
+## Members
+
+| Student number | Fullname        | Roles  |
+| -------------- | --------------- | ------ |
+| 67070501045    | Supawit Marayat | Coding |
+|                |                 |        |
+|                |                 |        |
+
 ## How to contribute
 
 ```bash

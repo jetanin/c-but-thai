@@ -51,4 +51,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-app
+app*
+example*
+!example.c

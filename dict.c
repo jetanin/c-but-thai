@@ -1,6 +1,8 @@
 #include "hashmap.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#define DEFAULT_DICT "./storage/dict.txt"
 
 struct word_dict {
   char *word;
@@ -22,11 +24,41 @@ struct hashmap *dict_generator() {
   struct hashmap *map = hashmap_new(sizeof(struct word_dict), 0, 0, 0,
                                     word_hash, word_compare, NULL, NULL);
 
-  struct word_dict wd1 = {"hello", "สวัสดีครับ"};
-  struct word_dict wd2 = {"world", "คำพูด"};
+  FILE *ptr = fopen(DEFAULT_DICT, "r");
+  if (ptr == NULL) {
+    printf("no such file.\n");
+    return NULL;
+  }
 
-  hashmap_set(map, &wd1);
-  hashmap_set(map, &wd2);
+  char word[100];
+  char translate[100];
 
+  while (fscanf(ptr, "%s %s", word, translate) == 2) {
+    struct word_dict *w1 = malloc(sizeof(struct word_dict));
+    if (w1 == NULL) {
+      printf("Memory allocation failed.\n");
+      fclose(ptr);
+      return NULL;
+    }
+
+    w1->word = malloc(strlen(word) + 1);
+    w1->translate = malloc(strlen(translate) + 1);
+
+    if (w1->word == NULL || w1->translate == NULL) {
+      printf("Memory allocation failed.\n");
+      free(w1->word);
+      free(w1->translate);
+      free(w1);
+      fclose(ptr);
+      return NULL;
+    }
+
+    strcpy(w1->word, word);
+    strcpy(w1->translate, translate);
+
+    hashmap_set(map, w1);
+  }
+
+  fclose(ptr);
   return map;
 }

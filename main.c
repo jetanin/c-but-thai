@@ -9,7 +9,7 @@ int main() {
   }
 
   struct word_dict *result =
-      hashmap_get(dict, &(struct word_dict){.word = "hello"});
+      (struct word_dict *)hashmap_get(dict, &(struct word_dict){.word = "["});
   if (result) {
     printf("Word: %s, Translation: %s\n", result->word, result->translate);
   } else {

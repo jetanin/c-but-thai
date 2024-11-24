@@ -1,4 +1,4 @@
-# RATCHAKARN C
+# C But Thai
 
 CPE101 Semaster 1 Year 2024
 

@@ -25,3 +25,11 @@ void print_image(FILE *fptr) {
   while (fgets(read_string, sizeof(read_string), fptr) != NULL)
     printf("%s", read_string);
 }
+
+void clearConsole() {
+#ifdef _WIN32
+  system("cls");
+#else
+  printf("\033[H\033[J"); // ANSI escape code for Linux/Unix
+#endif
+}

@@ -7,5 +7,6 @@
 
 void print_image(FILE *fptr);
 int print_logo();
+void clearConsole();
 
 #endif

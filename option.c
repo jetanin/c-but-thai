@@ -26,14 +26,6 @@ int getch() {
 #endif
 }
 
-void clearConsole() {
-#ifdef _WIN32
-  system("cls");
-#else
-  printf("\033[H\033[J"); // ANSI escape code for Linux/Unix
-#endif
-}
-
 #define UP_ARROW 65
 #define DOWN_ARROW 66
 #define ENTER 10
@@ -46,6 +38,8 @@ void displayMenu(int current, char *opt[], int optSize) {
   for (int i = 0; i < optSize; i++) {
     printf("%s%s\n", current == i + 1 ? "> " : "  ", opt[i]);
   }
+
+  printf("\n");
 }
 
 int selectOptions(char *opt[], size_t opt_size) {
@@ -58,21 +52,17 @@ int selectOptions(char *opt[], size_t opt_size) {
     key = getch();
 
 #ifdef _WIN32
-    if (key == 224) { // Special key (arrow key prefix for Windows)
-      key = getch();
+    // soon
 #endif
-      if (key == UP_ARROW) {
-        current--;
-        if (current < 1)
-          current = opt_size;
-      } else if (key == DOWN_ARROW) {
-        current++;
-        if (current > opt_size)
-          current = 1;
-      }
-#ifdef _WIN32
+    if (key == UP_ARROW) {
+      current--;
+      if (current < 1)
+        current = opt_size;
+    } else if (key == DOWN_ARROW) {
+      current++;
+      if (current > opt_size)
+        current = 1;
     }
-#endif
 
     if (key == ENTER) {
       printf("\nYou selected Option %d : %s\n", current, opt[current - 1]);

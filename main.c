@@ -1,6 +1,12 @@
 #include "dict.h"
+#include "image.h"
 #include "option.h"
 #include <stdio.h>
+
+void c2t() {
+  clearConsole();
+  printf("Welcome to c2t\n");
+}
 
 int main() {
   struct hashmap *dict = dict_generator();
@@ -11,7 +17,13 @@ int main() {
 
   char *opt[] = {"translate c to ซี", "translate ซี to c", "add word to dict",
                  "END"};
-  int t = selectOptions(opt, 4);
+  int opt_s = selectOptions(opt, sizeof(opt) / sizeof(opt[0]));
+
+  if (opt_s == 1) {
+    c2t();
+  }
+
+  printf("End of Program!");
 
   hashmap_free(dict);
   return 0;

@@ -1,0 +1,1 @@
+#include[SPACE]<stdio.h>[NEWLINE][NEWLINE]int[SPACE]main()[SPACE]{[NEWLINE][SPACE][SPACE]printf("hello[SPACE]world!");[NEWLINE][SPACE][SPACE]return[SPACE]0;[NEWLINE]}[NEWLINE]

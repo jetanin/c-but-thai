@@ -1,4 +1,5 @@
 #include "dict.h"
+#include "image.h"
 #include <stdio.h>
 
 int main() {
@@ -8,15 +9,8 @@ int main() {
     return 1;
   }
 
-  struct word_dict *result =
-      (struct word_dict *)hashmap_get(dict, &(struct word_dict){.word = "["});
-  if (result) {
-    printf("Word: %s, Translation: %s\n", result->word, result->translate);
-  } else {
-    printf("Word not found\n");
-  }
+  print_logo();
 
   hashmap_free(dict);
-
   return 0;
 }

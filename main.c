@@ -1,5 +1,5 @@
 #include "dict.h"
-#include "image.h"
+#include "option.h"
 #include <stdio.h>
 
 int main() {
@@ -9,7 +9,9 @@ int main() {
     return 1;
   }
 
-  print_logo();
+  char *opt[] = {"translate c to ซี", "translate ซี to c", "add word to dict",
+                 "END"};
+  int t = selectOptions(opt, 4);
 
   hashmap_free(dict);
   return 0;

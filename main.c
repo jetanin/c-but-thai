@@ -8,6 +8,39 @@
 #include <string.h>
 #include <unistd.h>
 
+void c2t();
+void t2c();
+void add_dict();
+void search_word();
+void list_all_word();
+
+int main() {
+  char *opt[] = {"1. Translate c to ซี",
+                 "2. Translate ซี to c",
+                 "3. Add word to dict",
+                 "4. Search for word and definition",
+                 "5. List all word and definition",
+                 "END"};
+  int opt_s = selectOptions(opt, sizeof(opt) / sizeof(opt[0]));
+
+  if (opt_s == 1) {
+    c2t();
+  }
+
+  if (opt_s == 4) {
+    search_word();
+  }
+
+  if (opt_s == 5) {
+    list_all_word();
+  }
+
+  sleep(1);
+  printf("End of Program!");
+
+  return 0;
+}
+
 void c2t() {
   clearConsole();
 
@@ -77,43 +110,4 @@ void search_word() {
   free(dict);
 }
 
-void list_all_word() {
-  struct hashmap *dict = dict_generator();
-
-  size_t iter = 0;
-  void *item;
-  clearConsole();
-  while (hashmap_iter(dict, &iter, &item)) {
-    const struct word_dict *word_d = (const struct word_dict *)item;
-    printf("%s -> %s\n", word_d->word, word_d->translate);
-  }
-
-  free(dict);
-}
-
-int main() {
-  char *opt[] = {"1. Translate c to ซี",
-                 "2. Translate ซี to c",
-                 "3. Add word to dict",
-                 "4. Search for word and definition",
-                 "5. List all word and definition",
-                 "END"};
-  int opt_s = selectOptions(opt, sizeof(opt) / sizeof(opt[0]));
-
-  if (opt_s == 1) {
-    c2t();
-  }
-
-  if (opt_s == 4) {
-    search_word();
-  }
-
-  if (opt_s == 5) {
-    list_all_word();
-  }
-
-  sleep(1);
-  printf("End of Program!");
-
-  return 0;
-}
+void list_all_word() { clearConsole(); }

@@ -11,6 +11,7 @@
 void translate(int invert);
 void search_word();
 void list_all_word();
+void add_word();
 
 int main() {
   char *opt[] = {"1. Translate c to ซี",
@@ -26,6 +27,10 @@ int main() {
   }
   if (opt_s == 2) {
     translate(1);
+  }
+
+  if (opt_s == 3) {
+    add_word();
   }
 
   if (opt_s == 4) {
@@ -46,8 +51,12 @@ void translate(int invert) {
   clearConsole();
 
   if (invert) {
+    print_t2c();
+    printf("\n");
     printf("Welcome to t2c\n");
   } else {
+    print_c2t();
+    printf("\n");
     printf("Welcome to c2t\n");
   }
 
@@ -128,6 +137,8 @@ void search_word() {
   struct hashmap *dict = dict_generator();
 
   clearConsole();
+  print_search();
+
   char word[256];
   printf("Enter word to search: ");
   fgets(word, sizeof(word), stdin);
@@ -164,4 +175,9 @@ void list_all_word() {
     printf("%s : %s \n", word, translate);
     usleep(25 * 1000);
   }
+}
+
+void add_word() {
+  clearConsole();
+  print_add();
 }

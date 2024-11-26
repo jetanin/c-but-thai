@@ -8,5 +8,9 @@
 int print_logo();
 int print_dict();
 void clearConsole();
+int print_c2t();
+int print_t2c();
+int print_search();
+int print_add();
 
 #endif

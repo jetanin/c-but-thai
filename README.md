@@ -1,6 +1,6 @@
 # C But Thai
 
-CPE101 Semaster 1 Year 2024
+CPE100 Semaster 1 Year 2024
 
 ## Used Libraries & tools
 

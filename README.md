@@ -20,4 +20,10 @@ CPE101 Semaster 1 Year 2024
 make
 ```
 
+or
+
+```bash
+gcc -o app main.c hashmap.c dict.c image.c option.c line.c && ./a
+```
+
 to compile a file and run

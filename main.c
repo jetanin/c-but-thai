@@ -22,23 +22,25 @@ int main() {
                  "END"};
   int opt_s = selectOptions(opt, sizeof(opt) / sizeof(opt[0]));
 
-  if (opt_s == 1) {
+  switch (opt_s) {
+  case 1:
     translate(0);
-  }
-  if (opt_s == 2) {
+    break;
+  case 2:
     translate(1);
-  }
-
-  if (opt_s == 3) {
+    break;
+  case 3:
     add_word();
-  }
-
-  if (opt_s == 4) {
+    break;
+  case 4:
     search_word();
-  }
-
-  if (opt_s == 5) {
+    break;
+  case 5:
     list_all_word();
+    break;
+  default:
+    printf("Invalid option selected.\n");
+    break;
   }
 
   sleep(1);

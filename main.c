@@ -8,9 +8,7 @@
 #include <string.h>
 #include <unistd.h>
 
-void c2t();
-void t2c();
-void add_dict();
+void translate(int invert);
 void search_word();
 void list_all_word();
 
@@ -24,10 +22,10 @@ int main() {
   int opt_s = selectOptions(opt, sizeof(opt) / sizeof(opt[0]));
 
   if (opt_s == 1) {
-    c2t();
+    translate(0);
   }
   if (opt_s == 2) {
-    t2c();
+    translate(1);
   }
 
   if (opt_s == 4) {
@@ -44,15 +42,37 @@ int main() {
   return 0;
 }
 
-void c2t() {
+void translate(int invert) {
   clearConsole();
 
-  printf("Welcome to c2t\n");
+  if (invert) {
+    printf("Welcome to t2c\n");
+  } else {
+    printf("Welcome to c2t\n");
+  }
+
   printf("Enter files name : ");
 
   char fname[256];
   fgets(fname, sizeof(fname), stdin);
   fname[strcspn(fname, "\n")] = 0;
+
+  char *ext = strrchr(fname, '.');
+  if (invert) {
+    if (ext == NULL || strcmp(ext, ".ซี") != 0) {
+      fprintf(
+          stderr,
+          "Error: Input file must have .ซี extension for t2c translation.\n");
+      return;
+    }
+  } else {
+    if (ext == NULL || strcmp(ext, ".c") != 0) {
+      fprintf(
+          stderr,
+          "Error: Input file must have .c extension for c2t translation.\n");
+      return;
+    }
+  }
 
   FILE *fptr, *foutptr;
   fptr = fopen(fname, "r");
@@ -66,9 +86,17 @@ void c2t() {
   strcpy(foutputname, fname);
   char *dot = strrchr(foutputname, '.');
   if (dot != NULL) {
-    strcpy(dot, ".ซี");
+    if (invert) {
+      strcpy(dot, "_i.c");
+    } else {
+      strcpy(dot, ".ซี");
+    }
   } else {
-    strcat(foutputname, ".ซี");
+    if (invert) {
+      strcat(foutputname, "_i.c");
+    } else {
+      strcat(foutputname, ".ซี");
+    }
   }
 
   foutptr = fopen(foutputname, "w");
@@ -78,7 +106,12 @@ void c2t() {
     return;
   }
 
-  struct hashmap *dict = dict_generator();
+  struct hashmap *dict;
+  if (invert) {
+    dict = dict_generator_invert();
+  } else {
+    dict = dict_generator();
+  }
 
   char line[256];
   while (fgets(line, sizeof(line), fptr)) {
@@ -91,52 +124,9 @@ void c2t() {
   fclose(fptr);
 }
 
-void t2c() {
-  clearConsole();
+void c2t() { translate(0); }
 
-  printf("Welcome to t2c\n");
-  printf("Enter files name : ");
-
-  char fname[256];
-  fgets(fname, sizeof(fname), stdin);
-  fname[strcspn(fname, "\n")] = 0;
-
-  FILE *fptr, *foutptr;
-  fptr = fopen(fname, "r");
-
-  if (fptr == NULL) {
-    perror("Error opening file");
-    return;
-  }
-
-  char foutputname[256];
-  strcpy(foutputname, fname);
-  char *dot = strrchr(foutputname, '.');
-  if (dot != NULL) {
-    strcpy(dot, "_i.c");
-  } else {
-    strcat(foutputname, "_i.c");
-  }
-
-  foutptr = fopen(foutputname, "w");
-  if (foutptr == NULL) {
-    perror("Error opening output file");
-    fclose(fptr);
-    return;
-  }
-
-  struct hashmap *dict = dict_generator_invert();
-
-  char line[256];
-  while (fgets(line, sizeof(line), fptr)) {
-    char *processed = process_line(line, dict);
-    fputs(processed, foutptr);
-  }
-
-  free(dict);
-  fclose(foutptr);
-  fclose(fptr);
-}
+void t2c() { translate(1); }
 
 void search_word() {
   struct hashmap *dict = dict_generator();

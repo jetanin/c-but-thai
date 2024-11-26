@@ -26,6 +26,9 @@ int main() {
   if (opt_s == 1) {
     c2t();
   }
+  if (opt_s == 2) {
+    t2c();
+  }
 
   if (opt_s == 4) {
     search_word();
@@ -76,6 +79,53 @@ void c2t() {
   }
 
   struct hashmap *dict = dict_generator();
+
+  char line[256];
+  while (fgets(line, sizeof(line), fptr)) {
+    char *processed = process_line(line, dict);
+    fputs(processed, foutptr);
+  }
+
+  free(dict);
+  fclose(foutptr);
+  fclose(fptr);
+}
+
+void t2c() {
+  clearConsole();
+
+  printf("Welcome to t2c\n");
+  printf("Enter files name : ");
+
+  char fname[256];
+  fgets(fname, sizeof(fname), stdin);
+  fname[strcspn(fname, "\n")] = 0;
+
+  FILE *fptr, *foutptr;
+  fptr = fopen(fname, "r");
+
+  if (fptr == NULL) {
+    perror("Error opening file");
+    return;
+  }
+
+  char foutputname[256];
+  strcpy(foutputname, fname);
+  char *dot = strrchr(foutputname, '.');
+  if (dot != NULL) {
+    strcpy(dot, "_i.c");
+  } else {
+    strcat(foutputname, "_i.c");
+  }
+
+  foutptr = fopen(foutputname, "w");
+  if (foutptr == NULL) {
+    perror("Error opening output file");
+    fclose(fptr);
+    return;
+  }
+
+  struct hashmap *dict = dict_generator_invert();
 
   char line[256];
   while (fgets(line, sizeof(line), fptr)) {

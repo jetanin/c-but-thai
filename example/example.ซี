@@ -1,1 +1,10 @@
-#include[SPACE]<stdio.h>[NEWLINE][NEWLINE]int[SPACE]main()[SPACE]{[NEWLINE][SPACE][SPACE]printf("hello[SPACE]world!");[NEWLINE][SPACE][SPACE]return[SPACE]0;[NEWLINE]}[NEWLINE]
+นำเข้าไลบรารี <stdio.h>
+
+ตัวแปรประเภทจำนวนเต็ม add(int a, ตัวแปรประเภทจำนวนเต็ม b) { คืนค่า a + b; }
+
+ตัวแปรประเภทจำนวนเต็ม ฟังก์ชั่นสำหรับการทำงานหลัก {
+  printf("hello world!");
+  ตัวแปรประเภทจำนวนเต็ม a = 1, b = 2;
+  printf("%d", add(a, b));
+  คืนค่า 0;
+}

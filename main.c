@@ -14,9 +14,9 @@ void c2t() {
   printf("Welcome to c2t\n");
   printf("Enter files name : ");
 
-  char fname[256];
-  fgets(fname, sizeof(fname), stdin);
-  fname[strcspn(fname, "\n")] = 0;
+  char fname[256] = "example/example.c";
+  // fgets(fname, sizeof(fname), stdin);
+  // fname[strcspn(fname, "\n")] = 0;
 
   FILE *fptr, *foutptr;
   fptr = fopen(fname, "r");
@@ -64,7 +64,7 @@ int main() {
     c2t();
   }
 
-  sleep(2);
+  sleep(0.5);
   // clearConsole();
   printf("End of Program!");
 

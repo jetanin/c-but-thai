@@ -2,9 +2,16 @@
 #define MAX_LEN 128
 
 void print_image(FILE *fptr);
+int print_from_file(const char *filename);
 
 int print_logo() {
-  char *filename = "./storage/c-but-thai-logo.txt";
+  char *filename = "storage/c-but-thai-logo.txt";
+  return print_from_file(filename);
+}
+
+int print_dict() { return print_from_file("storage/reload_dict.txt"); }
+
+int print_from_file(const char *filename) {
   FILE *fptr = NULL;
 
   if ((fptr = fopen(filename, "r")) == NULL) {

@@ -34,8 +34,8 @@ char *process_line(char *line, struct hashmap *dict) {
 
   sprintf(processed, "%*s", line_indent, "");
   for (int j = 0; j < i; j++) {
-    word = hashmap_get(dict, &(struct word_dict){.word = array[j]});
-    printf(array[j]);
+    word = (struct word_dict *)hashmap_get(
+        dict, &(struct word_dict){.word = array[j]});
     if (word != NULL) {
       sprintf(processed + strlen(processed), "%s ", word->translate);
     } else {

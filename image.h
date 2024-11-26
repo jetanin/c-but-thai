@@ -5,8 +5,8 @@
 
 #define MAX_LEN 128
 
-void print_image(FILE *fptr);
 int print_logo();
+int print_dict();
 void clearConsole();
 
 #endif

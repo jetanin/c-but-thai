@@ -135,7 +135,8 @@ void search_word() {
 
   struct word_dict *word_d;
 
-  word_d = hashmap_get(dict, &(struct word_dict){.word = word});
+  word_d =
+      (struct word_dict *)hashmap_get(dict, &(struct word_dict){.word = word});
 
   if (word_d != NULL) {
     printf("Translation: %s\n", word_d->translate);
@@ -146,4 +147,21 @@ void search_word() {
   free(dict);
 }
 
-void list_all_word() { clearConsole(); }
+void list_all_word() {
+  clearConsole();
+  print_dict();
+  printf("\n");
+  FILE *ptr = fopen("./storage/dict.txt", "r");
+  if (ptr == NULL) {
+    printf("no such file.\n");
+    return;
+  }
+
+  char word[100];
+  char translate[100];
+
+  while (fscanf(ptr, "%s %s", word, translate) == 2) {
+    printf("%s : %s \n", word, translate);
+    usleep(25 * 1000);
+  }
+}

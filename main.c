@@ -124,10 +124,6 @@ void translate(int invert) {
   fclose(fptr);
 }
 
-void c2t() { translate(0); }
-
-void t2c() { translate(1); }
-
 void search_word() {
   struct hashmap *dict = dict_generator();
 

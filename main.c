@@ -121,11 +121,7 @@ void translate(int invert) {
   }
 
   struct hashmap *dict;
-  if (invert) {
-    dict = dict_generator_invert();
-  } else {
-    dict = dict_generator();
-  }
+  dict = dict_generator(invert);
 
   char line[256];
   while (fgets(line, sizeof(line), fptr)) {
@@ -139,7 +135,7 @@ void translate(int invert) {
 }
 
 void search_word() {
-  struct hashmap *dict = dict_generator();
+  struct hashmap *dict = dict_generator(1);
 
   clearConsole();
   print_search();

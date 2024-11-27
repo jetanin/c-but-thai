@@ -6,12 +6,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#define Sleep sleep
+#include <io.h>
+#define F_OK 0
+#define access _access
+#else
 #include <unistd.h>
+#endif
 
 void translate(int invert);
 void search_word();
 void list_all_word();
 void add_word();
+void delete_word();
 
 int main() {
   char *opt[] = {"1. Translate c to ซี",
@@ -19,6 +29,7 @@ int main() {
                  "3. Add word to dict",
                  "4. Search for word and definition",
                  "5. List all word and definition",
+                 "6. Delete word in dict",
                  "END"};
   int opt_s = selectOptions(opt, sizeof(opt) / sizeof(opt[0]));
 
@@ -37,6 +48,9 @@ int main() {
     break;
   case 5:
     list_all_word();
+    break;
+  case 6:
+    delete_word();
     break;
   default:
     printf("Invalid option selected.\n");
@@ -182,4 +196,78 @@ void list_all_word() {
 void add_word() {
   clearConsole();
   print_add();
+  printf("\n");
+
+  FILE *file;
+  file = fopen("dict/extra.txt", "a");
+
+  if (file == NULL) {
+    perror("Error opening file");
+    return;
+  }
+
+  char word[256];
+  char translation[256];
+
+  printf("Enter word: ");
+  fgets(word, sizeof(word), stdin);
+  word[strcspn(word, "\n")] = 0;
+
+  printf("Enter translation: ");
+  fgets(translation, sizeof(translation), stdin);
+  translation[strcspn(translation, "\n")] = 0;
+
+  fprintf(file, "%s %s\n", word, translation);
+  fclose(file);
+  printf("Word added successfully.\n");
+}
+
+void delete_word() {
+  clearConsole();
+  printf("\n");
+
+  char word[256];
+  printf("Enter word to delete: ");
+  fgets(word, sizeof(word), stdin);
+  word[strcspn(word, "\n")] = 0;
+
+  FILE *file = fopen("dict/extra.txt", "r");
+  if (file == NULL) {
+    perror("Error opening file");
+    return;
+  }
+
+  FILE *temp = fopen("dict/temp.txt", "w");
+  if (temp == NULL) {
+    perror("Error opening temporary file");
+    fclose(file);
+    return;
+  }
+
+  char line[512];
+  int found = 0;
+  while (fgets(line, sizeof(line), file)) {
+    char *pos = strchr(line, ' ');
+    if (pos != NULL) {
+      *pos = '\0';
+      if (strcmp(line, word) != 0) {
+        *pos = ' ';
+        fputs(line, temp);
+      } else {
+        found = 1;
+      }
+    }
+  }
+
+  fclose(file);
+  fclose(temp);
+
+  if (found) {
+    remove("dict/extra.txt");
+    rename("dict/temp.txt", "dict/extra.txt");
+    printf("Word deleted successfully.\n");
+  } else {
+    remove("dict/temp.txt");
+    printf("Word not found in dictionary.\n");
+  }
 }

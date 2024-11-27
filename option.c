@@ -52,7 +52,32 @@ int selectOptions(char *opt[], size_t opt_size) {
     key = getch();
 
 #ifdef _WIN32
-    // soon
+    if (key == 72) {
+      key = UP_ARROW;
+    } else if (key == 80) {
+      key = DOWN_ARROW;
+    }
+
+    if (key == 13) {
+      key = ENTER;
+    }
+
+    if (key == 72) {
+      current--;
+      if (current < 1)
+        current = opt_size;
+    } else if (key == 80) {
+      current++;
+      if (current > opt_size)
+        current = 1;
+    }
+
+    if (key == 13) {
+      printf("\nYou selected Option %d : %s\n", current, opt[current - 1]);
+      break;
+    }
+
+    displayMenu(current, opt, opt_size);
 #endif
     if (key == UP_ARROW) {
       current--;

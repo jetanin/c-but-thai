@@ -7,16 +7,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef _WIN32
-#include <windows.h>
-#define Sleep sleep
-#include <io.h>
-#define F_OK 0
-#define access _access
-#else
-#include <unistd.h>
-#endif
-
 void translate(int invert);
 void search_word();
 void list_all_word();
@@ -57,7 +47,6 @@ int main() {
     break;
   }
 
-  sleep(1);
   printf("End of Program!");
 
   return 0;
@@ -192,7 +181,6 @@ void list_all_word() {
   if (ptr != NULL) {
     while (fscanf(ptr, "%s %s", word, translate) == 2) {
       printf("%s : %s \n", word, translate);
-      usleep(25 * 1000);
     }
     fclose(ptr);
   }
@@ -201,7 +189,6 @@ void list_all_word() {
   if (ptr_extra != NULL) {
     while (fscanf(ptr_extra, "%s %s", word, translate) == 2) {
       printf("%s : %s \n", word, translate);
-      usleep(25 * 1000);
     }
     fclose(ptr_extra);
   }

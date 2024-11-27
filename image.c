@@ -39,7 +39,7 @@ void print_image(FILE *fptr) {
 
 void clearConsole() {
 #ifdef _WIN32
-  system("cls");
+  printf("\033[H\033[J"); // ANSI escape code for Windows
 #else
   printf("\033[H\033[J"); // ANSI escape code for Linux/Unix
 #endif

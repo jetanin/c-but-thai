@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define DEFAULT_DICT "./storage/dict.txt"
+#define DEFAULT_DICT "dict/dict.txt"
 
 struct word_dict {
   char *word;

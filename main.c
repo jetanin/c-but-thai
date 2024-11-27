@@ -178,7 +178,7 @@ void list_all_word() {
   clearConsole();
   print_dict();
   printf("\n");
-  FILE *ptr = fopen("./storage/dict.txt", "r");
+  FILE *ptr = fopen("dict/dict.txt", "r");
   FILE *ptr_extra = fopen("dict/extra.txt", "r");
   if (ptr == NULL && ptr_extra == NULL) {
     printf("no such file.\n");

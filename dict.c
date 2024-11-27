@@ -72,7 +72,3 @@ struct hashmap *dict_generator_common(int invert) {
   fclose(ptr);
   return map;
 }
-
-struct hashmap *dict_generator() { return dict_generator_common(0); }
-
-struct hashmap *dict_generator_invert() { return dict_generator_common(1); }

@@ -20,7 +20,7 @@ uint64_t word_hash(const void *item, uint64_t seed0, uint64_t seed1) {
   return hashmap_sip(word->word, strlen(word->word), seed0, seed1);
 }
 
-struct hashmap *dict_generator_common(int invert) {
+struct hashmap *dict_generator(int invert) {
   struct hashmap *map = hashmap_new(sizeof(struct word_dict), 0, 0, 0,
                                     word_hash, word_compare, NULL, NULL);
 

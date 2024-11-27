@@ -179,7 +179,8 @@ void list_all_word() {
   print_dict();
   printf("\n");
   FILE *ptr = fopen("./storage/dict.txt", "r");
-  if (ptr == NULL) {
+  FILE *ptr_extra = fopen("dict/extra.txt", "r");
+  if (ptr == NULL && ptr_extra == NULL) {
     printf("no such file.\n");
     return;
   }
@@ -187,9 +188,22 @@ void list_all_word() {
   char word[100];
   char translate[100];
 
-  while (fscanf(ptr, "%s %s", word, translate) == 2) {
-    printf("%s : %s \n", word, translate);
-    usleep(25 * 1000);
+  printf("\nList default dictionary\n");
+  if (ptr != NULL) {
+    while (fscanf(ptr, "%s %s", word, translate) == 2) {
+      printf("%s : %s \n", word, translate);
+      usleep(25 * 1000);
+    }
+    fclose(ptr);
+  }
+
+  printf("\nList extra dictionary\n");
+  if (ptr_extra != NULL) {
+    while (fscanf(ptr_extra, "%s %s", word, translate) == 2) {
+      printf("%s : %s \n", word, translate);
+      usleep(25 * 1000);
+    }
+    fclose(ptr_extra);
   }
 }
 

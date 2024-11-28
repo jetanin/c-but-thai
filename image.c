@@ -14,6 +14,7 @@ int print_t2c() { return print_from_file("storage/t2c.txt"); }
 int print_c2t() { return print_from_file("storage/c2t.txt"); }
 int print_search() { return print_from_file("storage/search.txt"); }
 int print_add() { return print_from_file("storage/add_word.txt"); }
+int print_delete() { return print_from_file("storage/delete_word.txt"); }
 
 int print_from_file(const char *filename) {
   FILE *fptr = NULL;

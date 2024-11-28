@@ -12,5 +12,6 @@ int print_c2t();
 int print_t2c();
 int print_search();
 int print_add();
+int print_delete();
 
 #endif

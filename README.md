@@ -19,11 +19,23 @@ CPE101 Semaster 1 Year 2024
 ```bash
 make
 ```
+```for windows
+chcp 65001
+make win
+```
 
 or
 
 ```bash
 gcc -o app main.c hashmap.c dict.c image.c option.c line.c && ./a
 ```
+```bash for windows
+chcp 65001
+gcc -o app main.c hashmap.c dict.c image.c option.c line.c && app.exe
+```
+
 
 to compile a file and run
+
+
+

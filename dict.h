@@ -11,7 +11,6 @@ struct word_dict {
 
 int word_compare(const void *a, const void *b, void *udata);
 uint64_t word_hash(const void *item, uint64_t seed0, uint64_t seed1);
-struct hashmap *dict_generator();
-struct hashmap *dict_generator_invert();
+struct hashmap *dict_generator(int invert);
 
 #endif // DICT_H

@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 
 void translate(int invert);
 void search_word();
@@ -14,6 +15,7 @@ void add_word();
 void delete_word();
 
 int main() {
+  setlocale(LC_ALL, "th_TH.UTF-8");
   char *opt[] = {"1. Translate c to ซี",
                  "2. Translate ซี to c",
                  "3. Add word to dict",
@@ -53,6 +55,7 @@ int main() {
 }
 
 void translate(int invert) {
+  setlocale(LC_ALL, "th_TH.UTF-8");
   clearConsole();
 
   if (invert) {
@@ -225,6 +228,7 @@ void add_word() {
 
 void delete_word() {
   clearConsole();
+  print_delete();
   printf("\n");
 
   char word[256];
